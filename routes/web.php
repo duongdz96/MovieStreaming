@@ -15,7 +15,13 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::get('/', [IndexController::class, 'home']);
+Route::get('/', [IndexController::class, 'home'])->name('homepage');
+Route::get('/category', [IndexController::class, 'category'])->name('category');
+Route::get('/genre', [IndexController::class, 'genre'])->name('genre');
+Route::get('/country', [IndexController::class, 'country'])->name('country');
+Route::get('/movie', [IndexController::class, 'movie'])->name('movie');
+Route::get('/watching', [IndexController::class, 'watch'])->name('watch');
+Route::get('/episode', [IndexController::class, 'episode'])->name('episode');
 
 Auth::routes();
 

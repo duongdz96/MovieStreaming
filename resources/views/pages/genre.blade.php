@@ -5,7 +5,7 @@
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-6">
-                        <div class="yoast_breadcrumb hidden-xs"><span><span><a href="">Phim hay</a> » <span
+                        <div class="yoast_breadcrumb hidden-xs"><span><span><a href="">Thể loại</a> » <span
                                         class="breadcrumb_last" aria-current="page">2020</span></span></span></div>
                     </div>
                 </div>
