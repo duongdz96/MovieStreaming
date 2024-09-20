@@ -15,9 +15,9 @@
                         @endif
 
                         @if (!isset($category))
-                            {!! Form::open(['route' => 'category.store', 'method' => 'POST']) !!}
+                            {!! Form::open(['route' => 'categories.store', 'method' => 'POST']) !!}
                         @else
-                            {!! Form::open(['route' => ['category.update', $category->id], 'method' => 'PUT']) !!}
+                            {!! Form::open(['route' => ['categories.update', $category->id], 'method' => 'PUT']) !!}
                         @endif
                         <div class="form-group">
                             {!! Form::label('title', 'Title', []) !!}
@@ -81,12 +81,12 @@
                                 <td>
                                     {!! Form::open([
                                         'method' => 'DELETE',
-                                        'route' => ['category.destroy', $cate->id],
+                                        'route' => ['categories.destroy', $cate->id],
                                         'onsubmit' => 'return confirm("Bạn muốn xóa không")',
                                     ]) !!}
                                     {!! Form::submit('Xóa', ['class' => 'btn btn-danger']) !!}
                                     {!! Form::close() !!}
-                                    <a href="{{ route('category.edit', $cate->id) }}" class="btn btn-warning">Sửa</a>
+                                    <a href="{{ route('categories.edit', $cate->id) }}" class="btn btn-warning">Sửa</a>
                                 </td>
                             </tr>
                         @endforeach

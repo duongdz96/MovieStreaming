@@ -15,9 +15,9 @@
                         @endif
 
                         @if (!isset($genre))
-                            {!! Form::open(['route' => 'genre.store', 'method' => 'POST']) !!}
+                            {!! Form::open(['route' => 'genres.store', 'method' => 'POST']) !!}
                         @else
-                            {!! Form::open(['route' => ['genre.update', $genre->id], 'method' => 'PUT']) !!}
+                            {!! Form::open(['route' => ['genres.update', $genre->id], 'method' => 'PUT']) !!}
                         @endif
                         <div class="form-group">
                             {!! Form::label('title', 'Title', []) !!}
@@ -76,12 +76,12 @@
                                 <td>
                                     {!! Form::open([
                                         'method' => 'DELETE',
-                                        'route' => ['genre.destroy', $cate->id],
+                                        'route' => ['genres.destroy', $cate->id],
                                         'onsubmit' => 'return confirm("Bạn muốn xóa không")',
                                     ]) !!}
                                     {!! Form::submit('Xóa', ['class' => 'btn btn-danger']) !!}
                                     {!! Form::close() !!}
-                                    <a href="{{ route('genre.edit', $cate->id) }}" class="btn btn-warning">Sửa</a>
+                                    <a href="{{ route('genres.edit', $cate->id) }}" class="btn btn-warning">Sửa</a>
                                 </td>
                             </tr>
                         @endforeach

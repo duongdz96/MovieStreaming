@@ -15,9 +15,9 @@
                         @endif
 
                         @if (!isset($country))
-                            {!! Form::open(['route' => 'country.store', 'method' => 'POST']) !!}
+                            {!! Form::open(['route' => 'countries.store', 'method' => 'POST']) !!}
                         @else
-                            {!! Form::open(['route' => ['country.update', $country->id], 'method' => 'PUT']) !!}
+                            {!! Form::open(['route' => ['countries.update', $country->id], 'method' => 'PUT']) !!}
                         @endif
                         <div class="form-group">
                             {!! Form::label('title', 'Title', []) !!}
@@ -81,12 +81,12 @@
                                 <td>
                                     {!! Form::open([
                                         'method' => 'DELETE',
-                                        'route' => ['country.destroy', $cate->id],
+                                        'route' => ['countries.destroy', $cate->id],
                                         'onsubmit' => 'return confirm("Bạn muốn xóa không")',
                                     ]) !!}
                                     {!! Form::submit('Xóa', ['class' => 'btn btn-danger']) !!}
                                     {!! Form::close() !!}
-                                    <a href="{{ route('country.edit', $cate->id) }}" class="btn btn-warning">Sửa</a>
+                                    <a href="{{ route('countries.edit', $cate->id) }}" class="btn btn-warning">Sửa</a>
                                 </td>
                             </tr>
                         @endforeach

@@ -33,8 +33,8 @@ Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 //route admin
-Route::resource('/category', CategoryController::class);
-Route::resource('/genre', GenreController::class);
-Route::resource('/country', CountryController::class);
-Route::resource('/episode', EpisodeController::class);
-Route::resource('/movie', MovieController::class);
+Route::resource('categories', CategoryController::class);
+Route::resource('genres', GenreController::class);
+Route::resource('countries', CountryController::class);
+Route::resource('episodes', EpisodeController::class);
+Route::resource('movies', MovieController::class);
