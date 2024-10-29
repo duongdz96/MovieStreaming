@@ -39,6 +39,7 @@ class GenreController extends Controller
         $data = $request->all();
         $genre = new Genre();
         $genre->title = $data['title'];
+        $genre->slug = $data['slug'];
         $genre->description = $data['description'];
         $genre->status = $data['status'];
         $genre->save();
@@ -81,6 +82,7 @@ class GenreController extends Controller
         $data = $request->all();
         $genre = Genre::find($id);
         $genre->title = $data['title'];
+        $genre->slug = $data['slug'];
         $genre->description = $data['description'];
         $genre->status = $data['status'];
         $genre->save();

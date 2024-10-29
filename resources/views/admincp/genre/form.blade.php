@@ -24,7 +24,16 @@
                             {!! Form::text('title', isset($genre) ? $genre->title : '', [
                                 'class' => 'form-control',
                                 'placeholder' => 'Nhap vao du lieu...',
-                                'id' => 'title_danhmuc',
+                                'id' => 'slug',
+                                'onkeyup' => 'ChangeToSlug()',
+                            ]) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('slug', 'Slug', []) !!}
+                            {!! Form::text('slug', isset($genre) ? $genre->slug : '', [
+                                'class' => 'form-control',
+                                'placeholder' => 'Nhap vao du lieu...',
+                                'id' => 'convert_slug',
                             ]) !!}
                         </div>
                         <div class="form-group">
