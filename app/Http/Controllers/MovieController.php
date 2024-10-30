@@ -18,7 +18,8 @@ class MovieController extends Controller
      */
     public function index()
     {
-        //
+        $list = Movie::with('category', 'genre', 'country')->orderBy('id', 'DESC')->get();
+        return view('admincp.movie.index', compact('list'));
     }
 
     /**
@@ -31,8 +32,8 @@ class MovieController extends Controller
         $category = Category::pluck('title', 'id');
         $genre = Genre::pluck('title', 'id');
         $country = Country::pluck('title', 'id');
-        $list = Movie::with('category', 'genre', 'country')->orderBy('id', 'DESC')->get();
-        return view('admincp.movie.form', compact('list', 'genre', 'country', 'category'));
+
+        return view('admincp.movie.form', compact('genre', 'country', 'category'));
     }
 
     /**
@@ -92,8 +93,7 @@ class MovieController extends Controller
         $genre = Genre::pluck('title', 'id');
         $country = Country::pluck('title', 'id');
         $movie = Movie::find($id);
-        $list = Movie::with('category', 'genre', 'country')->orderBy('id', 'DESC')->get();
-        return view('admincp.movie.form', compact('list', 'genre', 'country', 'category', 'movie'));
+        return view('admincp.movie.form', compact('genre', 'country', 'category', 'movie'));
     }
 
     /**
