@@ -34,6 +34,13 @@
                             ]) !!}
                         </div>
                         <div class="form-group">
+                            {!! Form::label('Ten Tieng anh', 'Ten Tieng anh', []) !!}
+                            {!! Form::text('name_eng', isset($movie) ? $movie->name_eng : '', [
+                                'class' => 'form-control',
+                                'placeholder' => 'Nhap vao du lieu...',
+                            ]) !!}
+                        </div>
+                        <div class="form-group">
                             {!! Form::label('slug', 'Slug', []) !!}
                             {!! Form::text('slug', isset($movie) ? $movie->slug : '', [
                                 'class' => 'form-control',
@@ -72,6 +79,12 @@
                         <div class="form-group">
                             {!! Form::label('Genre', 'Genre', []) !!}
                             {!! Form::select('genre_id', $genre, isset($movie) ? $movie->genre : '', [
+                                'class' => 'form-control',
+                            ]) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('Hot', 'Hot', []) !!}
+                            {!! Form::select('phim_hot', ['1' => 'Có', '0' => 'Không'], isset($movie) ? $movie->phim_hot : '', [
                                 'class' => 'form-control',
                             ]) !!}
                         </div>
