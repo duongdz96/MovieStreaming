@@ -6,7 +6,7 @@
                 <div class="ajax"></div>
             </div>
         </div>
-        <div class="col-xs-12 carausel-sliderWidget">
+        {{-- <div class="col-xs-12 carausel-sliderWidget">
             <section id="halim-advanced-widget-4">
                 <div class="section-heading">
                     <a href="danhmuc.php" title="Phim Chiếu Rạp">
@@ -41,6 +41,63 @@
                 </div>
             </section>
             <div class="clearfix"></div>
+        </div> --}}
+        <div id="halim_related_movies-2xx" class="wrap-slider">
+            <div class="section-bar clearfix">
+                <h3 class="section-title"><span>PHIM HOT</span></h3>
+            </div>
+            <div id="halim_related_movies-2" class="owl-carousel owl-theme related-film">
+                @foreach ($phim_hot as $key => $hot)
+                    <article class="thumb grid-item post-38498">
+                        <div class="halim-item">
+                            <a class="halim-thumb" href="{{ route('movie') }}" title="Đại Thánh Vô Song">
+                                <figure><img class="lazy img-responsive" src="{{ asset('uploads/movie/' . $hot->image) }}"
+                                        alt="{{ $hot->title }}" title="{{ $hot->title }}"></figure>
+                                <span class="status">HD</span><span class="episode"><i class="fa fa-play"
+                                        aria-hidden="true"></i>Vietsub</span>
+                                <div class="icon_overlay"></div>
+                                <div class="halim-post-title-box">
+                                    <div class="halim-post-title ">
+                                        <p class="entry-title">{{ $hot->title }}</p>
+                                        <p class="original_title">{{ $hot->name_eng }}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </article>
+                @endforeach
+            </div>
+            <script>
+                jQuery(document).ready(function($) {
+                    var owl = $('#halim_related_movies-2');
+                    owl.owlCarousel({
+                        loop: true,
+                        margin: 4,
+                        autoplay: true,
+                        autoplayTimeout: 4000,
+                        autoplayHoverPause: true,
+                        nav: true,
+                        navText: ['<i class="hl-down-open rotate-left"></i>',
+                            '<i class="hl-down-open rotate-right"></i>'
+                        ],
+                        responsiveClass: true,
+                        responsive: {
+                            0: {
+                                items: 2
+                            },
+                            480: {
+                                items: 3
+                            },
+                            600: {
+                                items: 4
+                            },
+                            1000: {
+                                items: 4
+                            }
+                        }
+                    })
+                });
+            </script>
         </div>
         <main id="main-contents" class="col-xs-12 col-sm-12 col-md-8">
             @foreach ($category_home as $key => $cate_home)
@@ -65,7 +122,7 @@
                                         <div class="halim-post-title-box">
                                             <div class="halim-post-title ">
                                                 <p class="entry-title">{{ $mov->title }}</p>
-                                                <p class="original_title">My Roommate Is a Gumiho</p>
+                                                <p class="original_title">{{ $mov->eng }}</p>
                                             </div>
                                         </div>
                                     </a>
