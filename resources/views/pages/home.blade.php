@@ -50,7 +50,7 @@
                 @foreach ($phim_hot as $key => $hot)
                     <article class="thumb grid-item post-38498">
                         <div class="halim-item">
-                            <a class="halim-thumb" href="{{ route('movie') }}" title="Đại Thánh Vô Song">
+                            <a class="halim-thumb" href="{{ route('movie', $hot->slug) }}" title="Đại Thánh Vô Song">
                                 <figure><img class="lazy img-responsive" src="{{ asset('uploads/movie/' . $hot->image) }}"
                                         alt="{{ $hot->title }}" title="{{ $hot->title }}"></figure>
                                 <span class="status">HD</span><span class="episode"><i class="fa fa-play"
