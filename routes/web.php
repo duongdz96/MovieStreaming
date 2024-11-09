@@ -24,7 +24,7 @@ Route::get('/', [IndexController::class, 'home'])->name('homepage');
 Route::get('/category/{slug}', [IndexController::class, 'category'])->name('category');
 Route::get('/genre/{slug}', [IndexController::class, 'genre'])->name('genre');
 Route::get('/country/{slug}', [IndexController::class, 'country'])->name('country');
-Route::get('/movie', [IndexController::class, 'movie'])->name('movie');
+Route::get('/movie/{slug}', [IndexController::class, 'movie'])->name('movie');
 Route::get('/watching', [IndexController::class, 'watch'])->name('watch');
 Route::get('/episode', [IndexController::class, 'episode'])->name('episode');
 

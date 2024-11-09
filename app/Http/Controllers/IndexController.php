@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Genre;
@@ -51,9 +52,15 @@ class IndexController extends Controller
         $movie = Movie::where('country_id', $country_slug->id)->where('status', 1)->paginate(10);
         return view('pages.country', compact('category', 'genre', 'country', 'country_slug', 'movie'));
     }
-    public function movie()
+    public function movie($slug)
     {
-        return view('pages.movie');
+        $category = Category::orderBy('id', 'DESC')->where('status', 1)->get();
+        $genre = Genre::orderBy('id', 'DESC')->get();
+        $country = Country::orderBy('id', 'DESC')->get();
+
+        $movie = Movie::with('category', 'genre', 'country')->where('slug', $slug)->where('status', 1)->first();
+        $movie_related = Movie::with('category', 'genre', 'country')->where('category_id', $movie->category->id)->orderBy(DB::raw('RAND()'))->whereNotIn('slug', [$slug])->get();
+        return view('pages.movie', compact('category', 'genre', 'country', 'movie', 'movie_related'));
     }
     public function watch()
     {
