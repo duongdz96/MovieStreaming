@@ -27,6 +27,8 @@ Route::get('/country/{slug}', [IndexController::class, 'country'])->name('countr
 Route::get('/movie/{slug}', [IndexController::class, 'movie'])->name('movie');
 Route::get('/watching', [IndexController::class, 'watch'])->name('watch');
 Route::get('/episode', [IndexController::class, 'episode'])->name('episode');
+Route::get('/nam/{year}', [IndexController::class, 'year']);
+Route::get('/tag/{tag}', [IndexController::class, 'tag']);
 
 Auth::routes();
 
@@ -39,3 +41,8 @@ Route::resource('genres', GenreController::class);
 Route::resource('countries', CountryController::class);
 Route::resource('episodes', EpisodeController::class);
 Route::resource('movies', MovieController::class);
+Route::get('/update-year-phim', [MovieController::class, 'update_year']);
+Route::get('/update-topview-phim', [MovieController::class, 'update_topview']);
+Route::post('/filter-topview-phim', [MovieController::class, 'filter_topview']);
+Route::get('/filter-topview-default', [MovieController::class, 'filter_default']);
+Route::post('/update-season-phim', [MovieController::class, 'update_season']);
