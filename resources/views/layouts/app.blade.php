@@ -103,6 +103,74 @@
     <script src="https://code.jquery.com/ui/1.14.0/jquery-ui.js"></script>
     <script src="//cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
     <script type="text/javascript">
+        $('.select-year').change(function() {
+            var year = $(this).find(':selected').val();
+            var id_phim = $(this).attr('id');
+            // alert(year);
+            // alert(id_phim);
+            $.ajax({
+                url: "{{ url('/update-year-phim') }}",
+                method: "GET",
+                data: {
+                    year: year,
+                    id_phim: id_phim,
+                },
+                success: function() {
+                    alert('Thanh cong')
+                }
+            })
+        })
+    </script>
+
+    <script type="text/javascript">
+        $('.select-season').change(function() {
+            var season = $(this).find(':selected').val();
+            var id_phim = $(this).attr('id');
+            var _token = $('input[name="_token"]').val();
+            // alert(year);
+            // alert(id_phim);
+            $.ajax({
+                url: "{{ url('/update-season-phim') }}",
+                method: "POST",
+                data: {
+                    season: season,
+                    id_phim: id_phim,
+                    _token: _token
+                },
+                success: function() {
+                    alert('Thanh cong')
+                }
+            })
+        })
+    </script>
+
+    <script type="text/javascript">
+        $('.select-topview').change(function() {
+            var topview = $(this).find(':selected').val();
+            var id_phim = $(this).attr('id');
+            // alert(year);
+            // alert(id_phim);
+            if (topview == 0) {
+                var text = 'Ngay';
+            } else if (topview == 1) {
+                var text = 'Tuan';
+            } else {
+                var text = 'Thang';
+            }
+            $.ajax({
+                url: "{{ url('/update-topview-phim') }}",
+                method: "GET",
+                data: {
+                    topview: topview,
+                    id_phim: id_phim,
+                },
+                success: function() {
+                    alert('Thanh cong thay doi phim theo ' + text + '');
+                }
+            })
+        })
+    </script>
+    <script type="text/javascript">
         let table = new DataTable('#tablephim');
         $('.order_position').sortable({
             placeholder: 'ui-state-highlight',
