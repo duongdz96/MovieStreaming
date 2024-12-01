@@ -20,6 +20,13 @@ class MovieController extends Controller
     public function index()
     {
         $list = Movie::with('category', 'genre', 'country')->orderBy('id', 'DESC')->get();
+
+        $path = public_path() . "/json_file/";
+
+        if (!is_dir($path)) {
+            mkdir($path, 0777, true);
+        }
+        File::put($path . 'movies.json', json_encode($list));
         return view('admincp.movie.index', compact('list'));
     }
 
@@ -66,8 +73,12 @@ class MovieController extends Controller
                 $text = 'SD';
             } elseif ($mov->resolution == 2) {
                 $text = 'HDCam';
-            } else {
+            } elseif ($mov->resolution == 3) {
                 $text = 'Cam';
+            } elseif ($mov->resolution == 4) {
+                $text = 'FullHD';
+            } else {
+                $text = 'Trailer';
             }
             $output .= '<div class="item">
                 <a href="' . url('movie/' . $mov->slug) . '" title="' . $mov->title . '">
@@ -104,8 +115,12 @@ class MovieController extends Controller
                 $text = 'SD';
             } elseif ($mov->resolution == 2) {
                 $text = 'HDCam';
-            } else {
+            } elseif ($mov->resolution == 3) {
                 $text = 'Cam';
+            } elseif ($mov->resolution == 4) {
+                $text = 'FullHD';
+            } else {
+                $text = 'Trailer';
             }
             $output .= '<div class="item">
                 <a href="' . url('movie/' . $mov->slug) . '" title="' . $mov->title . '">
@@ -132,9 +147,10 @@ class MovieController extends Controller
     {
         $category = Category::pluck('title', 'id');
         $genre = Genre::pluck('title', 'id');
+        $list_genre = Genre::all();
         $country = Country::pluck('title', 'id');
 
-        return view('admincp.movie.form', compact('genre', 'country', 'category'));
+        return view('admincp.movie.form', compact('genre', 'country', 'category', 'list_genre'));
     }
 
     /**
@@ -148,6 +164,7 @@ class MovieController extends Controller
         $data = $request->all();
         $movie = new Movie();
         $movie->title = $data['title'];
+        $movie->trailer = $data['trailer'];
         $movie->tags = $data['tags'];
         $movie->time = $data['time'];
         $movie->resolution = $data['resolution'];
@@ -216,6 +233,7 @@ class MovieController extends Controller
         $data = $request->all();
         $movie = Movie::find($id);
         $movie->title = $data['title'];
+        $movie->trailer = $data['trailer'];
         $movie->tags = $data['tags'];
         $movie->time = $data['time'];
         $movie->resolution = $data['resolution'];

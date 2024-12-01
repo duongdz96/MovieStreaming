@@ -34,13 +34,18 @@
                         <div class="movie_info col-xs-12">
                             <div class="movie-poster col-md-3">
                                 <img class="movie-thumb" src="{{ asset('uploads/movie/' . $movie->image) }}"
-                                    alt="GÓA PHỤ ĐEN">
-                                <div class="bwa-content">
-                                    <div class="loader"></div>
-                                    <a href="{{ route('watch') }}" class="bwac-btn">
-                                        <i class="fa fa-play"></i>
-                                    </a>
-                                </div>
+                                    alt="{{ $movie->title }}">
+                                @if ($movie->resolution != 5)
+                                    <div class="bwa-content">
+                                        <div class="loader"></div>
+                                        <a href="{{ route('watch') }}" class="bwac-btn">
+                                            <i class="fa fa-play"></i>
+                                        </a>
+                                    </div>
+                                @else
+                                    <a href="#trailer" class="btn btn-primary watch_trailer" style="display:block">Xem
+                                        trailer</a>
+                                @endif
                             </div>
                             <div class="film-poster col-md-9">
                                 <h1 class="movie-title title-1"
@@ -57,16 +62,22 @@
                                                 HDCam
                                             @elseif ($movie->resolution == 3)
                                                 Cam
-                                            @else
+                                            @elseif ($movie->resolution == 4)
                                                 FullHD
-                                            @endif
-                                        </span><span class="episode">
-                                            @if ($movie->phude == 0)
-                                                VietSub
                                             @else
-                                                Thuyết minh
+                                                Trailer
                                             @endif
-                                        </span></li>
+                                        </span>
+                                        @if ($movie->resolution != 5)
+                                            <span class="episode">
+                                                @if ($movie->phude == 0)
+                                                    VietSub
+                                                @else
+                                                    Thuyết minh
+                                                @endif
+                                            </span>
+                                        @endif
+                                    </li>
                                     <li class="list-info-group-item"><span>Thời lượng</span> : {{ $movie->time }}
                                     </li>
                                     @if ($movie->season != 0)
@@ -121,6 +132,36 @@
                                 @else
                                     {{ $movie->title }}
                                 @endif
+                            </article>
+                        </div>
+                    </div>
+
+                    <!--tags phim-->
+                    <div class="section-bar clearfix">
+                        <h2 class="section-title"><span style="color:#ffed4d">Trailer phim</span></h2>
+                    </div>
+                    <div class="entry-content htmlwrap clearfix">
+                        <div class="video-item halim-entry-box">
+                            <article id="trailer" class="item-content">
+                                <iframe width="560" height="315"
+                                    src="https://www.youtube.com/embed/{{ $movie->trailer }}?si=BS8bThQwYwR7a9Bc"
+                                    title="YouTube video player" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            </article>
+                        </div>
+                    </div>
+
+                    <!--comment fb-->
+                    <div class="section-bar clearfix">
+                        <h2 class="section-title"><span style="color:#ffed4d">Bình luận</span></h2>
+                    </div>
+                    <div class="entry-content htmlwrap clearfix">
+                        <div class="video-item halim-entry-box">
+                            <article id="trailer" class="item-content">
+                                <div class="fb-comments"
+                                    data-href="http://127.0.0.1:8000/movie/conan-movie-26-tau-ngam-sat-mau-den"
+                                    data-width="100%" data-numposts="10"></div>
                             </article>
                         </div>
                     </div>
