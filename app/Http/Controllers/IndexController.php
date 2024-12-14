@@ -9,6 +9,7 @@ use App\Models\Genre;
 use App\Models\Country;
 use App\Models\Movie;
 use App\Models\Episode;
+use App\Models\Movie_Genre;
 
 class IndexController extends Controller
 {
@@ -71,7 +72,15 @@ class IndexController extends Controller
         $phimhot_trailer = Movie::where('resolution', 5)->where('status', 1)->orderBy('date_update', 'DESC')->take('10')->get();
 
         $genre_slug = Genre::where('slug', $slug)->first();
-        $movie = Movie::where('genre_id', $genre_slug->id)->where('status', 1)->orderBy('date_update', 'DESC')->paginate(12);
+
+        // nhieu the loai
+        $movie_genre = Movie_Genre::where('genre_id', $genre_slug->id)->get();
+        $many_genre = [];
+        foreach ($movie_genre as $key => $movi) {
+            $many_genre[] = $movi->movie_id;
+
+        }
+        $movie = Movie::whereIn('id', $many_genre)->where('status', 1)->orderBy('date_update', 'DESC')->paginate(12);
         return view('pages.genre', compact('category', 'genre', 'country', 'genre_slug', 'movie', 'phimhot_sidebar', 'phimhot_trailer'));
     }
     public function country($slug)
@@ -94,7 +103,7 @@ class IndexController extends Controller
         $phimhot_sidebar = Movie::where('phim_hot', 1)->where('status', 1)->orderBy('date_update', 'DESC')->take('30')->get();
         $phimhot_trailer = Movie::where('resolution', 5)->where('status', 1)->orderBy('date_update', 'DESC')->take('10')->get();
 
-        $movie = Movie::with('category', 'genre', 'country')->where('slug', $slug)->where('status', 1)->first();
+        $movie = Movie::with('category', 'genre', 'country', 'movie_genre')->where('slug', $slug)->where('status', 1)->first();
         $movie_related = Movie::with('category', 'genre', 'country')->where('category_id', $movie->category->id)->orderBy(DB::raw('RAND()'))->whereNotIn('slug', [$slug])->get();
         return view('pages.movie', compact('category', 'genre', 'country', 'movie', 'movie_related', 'phimhot_sidebar', 'phimhot_trailer'));
     }

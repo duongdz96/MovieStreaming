@@ -123,8 +123,12 @@
                                 'class' => 'form-control',
                             ]) !!} --}}
                             @foreach ($list_genre as $key => $gen)
-                                {!! Form::checkbox('genre[]', $gen->id) !!}
-                                {!! Form::checkbox('genre[]', $gen->title) !!}
+                                @if (isset($movie))
+                                    {!! Form::checkbox('genre[]', $gen->id, isset($movie_genre) && $movie_genre->contains($gen->id) ? true : false) !!}
+                                @else
+                                    {!! Form::checkbox('genre[]', $gen->id, '') !!}
+                                @endif
+                                {!! Form::label('genre', $gen->title) !!}
                             @endforeach
                         </div>
                         <div class="form-group">
