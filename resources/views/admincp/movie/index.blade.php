@@ -78,7 +78,11 @@
                                     @endif
                                 </td>
                                 <td>{{ $cate->category->title }}</td>
-                                <td>{{ $cate->genre->title }}</td>
+                                <td>
+                                    @foreach ($cate->movie_genre as $gen)
+                                        <span class="badge badge-dark">{{ $gen->title }}</span>
+                                    @endforeach
+                                </td>
                                 <td>{{ $cate->country->title }}</td>
                                 <td>
                                     {!! Form::selectYear('year', 2002, 2024, isset($cate->year) ? $cate->year : '', [

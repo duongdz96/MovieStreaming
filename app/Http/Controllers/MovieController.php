@@ -19,7 +19,7 @@ class MovieController extends Controller
      */
     public function index()
     {
-        $list = Movie::with('category', 'genre', 'country')->orderBy('id', 'DESC')->get();
+        $list = Movie::with('category', 'movie_genre', 'country', 'genre')->orderBy('id', 'DESC')->get();
 
         $path = public_path() . "/json_file/";
 
@@ -175,10 +175,14 @@ class MovieController extends Controller
         $movie->description = $data['description'];
         $movie->status = $data['status'];
         $movie->category_id = $data['category_id'];
-        $movie->genre_id = $data['genre_id'];
+
         $movie->country_id = $data['country_id'];
         $movie->date_create = Carbon::now('Asia/Ho_Chi_Minh');
         $movie->date_update = Carbon::now('Asia/Ho_Chi_Minh');
+
+        foreach ($data['genre'] as $key => $gen) {
+            $movie->genre_id = $gen[0];
+        }
         //them hinh anh
         $get_image = $request->file('image');
 
@@ -192,7 +196,10 @@ class MovieController extends Controller
             $movie->image = $new_image;
         }
         $movie->save();
-        return redirect()->back();
+        //them nhieu the loai cho phim
+        $movie->movie_genre()->attach($data['genre']);
+
+        return redirect()->route('movies.index');
     }
 
     /**
@@ -217,8 +224,10 @@ class MovieController extends Controller
         $category = Category::pluck('title', 'id');
         $genre = Genre::pluck('title', 'id');
         $country = Country::pluck('title', 'id');
+        $list_genre = Genre::all();
         $movie = Movie::find($id);
-        return view('admincp.movie.form', compact('genre', 'country', 'category', 'movie'));
+        $movie_genre = $movie->movie_genre;
+        return view('admincp.movie.form', compact('genre', 'country', 'category', 'movie', 'list_genre', 'movie_genre'));
     }
 
     /**
@@ -243,9 +252,12 @@ class MovieController extends Controller
         $movie->description = $data['description'];
         $movie->status = $data['status'];
         $movie->category_id = $data['category_id'];
-        $movie->genre_id = $data['genre_id'];
         $movie->country_id = $data['country_id'];
         $movie->date_update = Carbon::now('Asia/Ho_Chi_Minh');
+
+        foreach ($data['genre'] as $key => $gen) {
+            $movie->genre_id = $gen[0];
+        }
         //them hinh anh
         $get_image = $request->file('image');
 
@@ -263,7 +275,8 @@ class MovieController extends Controller
             }
         }
         $movie->save();
-        return redirect()->back();
+        $movie->movie_genre()->sync($data['genre']);
+        return redirect()->route('movies.index');
     }
 
     /**
