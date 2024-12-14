@@ -48,6 +48,13 @@
                             ]) !!}
                         </div>
                         <div class="form-group">
+                            {!! Form::label('trailer', 'Trailer', []) !!}
+                            {!! Form::text('trailer', isset($movie) ? $movie->trailer : '', [
+                                'class' => 'form-control',
+                                'placeholder' => 'Nhap vao du lieu...',
+                            ]) !!}
+                        </div>
+                        <div class="form-group">
                             {!! Form::label('slug', 'Slug', []) !!}
                             {!! Form::text('slug', isset($movie) ? $movie->slug : '', [
                                 'class' => 'form-control',
@@ -83,7 +90,7 @@
                             {!! Form::label('resolution', 'Resolution', []) !!}
                             {!! Form::select(
                                 'resolution',
-                                ['0' => 'HD', '1' => 'SD', '2' => 'HDCam', '3' => 'Cam', '4' => 'FullHD'],
+                                ['0' => 'HD', '1' => 'SD', '2' => 'HDCam', '3' => 'Cam', '4' => 'FullHD', '5' => 'Trailer'],
                                 isset($movie) ? $movie->resolution : '',
                                 [
                                     'class' => 'form-control',
@@ -112,9 +119,13 @@
                         </div>
                         <div class="form-group">
                             {!! Form::label('Genre', 'Genre', []) !!}
-                            {!! Form::select('genre_id', $genre, isset($movie) ? $movie->genre : '', [
+                            {{-- {!! Form::select('genre_id', $genre, isset($movie) ? $movie->genre : '', [
                                 'class' => 'form-control',
-                            ]) !!}
+                            ]) !!} --}}
+                            @foreach ($list_genre as $key => $gen)
+                                {!! Form::checkbox('genre[]', $gen->id) !!}
+                                {!! Form::checkbox('genre[]', $gen->title) !!}
+                            @endforeach
                         </div>
                         <div class="form-group">
                             {!! Form::label('Hot', 'Hot', []) !!}

@@ -62,8 +62,10 @@
                                         HDCam
                                     @elseif ($hot->resolution == 3)
                                         Cam
-                                    @else
+                                    @elseif ($hot->resolution == 4)
                                         FullHD
+                                    @else
+                                        Trailer
                                     @endif
                                 </span><span class="episode"><i class="fa fa-play" aria-hidden="true"></i>
                                     @if ($hot->phude == 0)
@@ -148,8 +150,10 @@
                                                 HDCam
                                             @elseif ($mov->resolution == 3)
                                                 Cam
-                                            @else
+                                            @elseif ($mov->resolution == 4)
                                                 FullHD
+                                            @else
+                                                Trailer
                                             @endif
                                         </span><span class="episode"><i class="fa fa-play" aria-hidden="true"></i>
                                             @if ($mov->phude == 0)
